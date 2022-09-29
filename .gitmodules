@@ -1,3 +1,0 @@
-[submodule "fvm-actor/ref-fvm"]
-	path = fvm-actor/ref-fvm
-	url = https://github.com/cryptoAtwill/ref-fvm.git
