@@ -1,3 +1,6 @@
 [submodule "fvm-actor/ref-fvm"]
 	path = fvm-actor/ref-fvm
 	url = https://github.com/cryptoAtwill/ref-fvm.git
+[submodule "checker-go/extern/filecoin-ffi"]
+	path = checker-go/extern/filecoin-ffi
+	url = https://github.com/filecoin-project/filecoin-ffi.git
