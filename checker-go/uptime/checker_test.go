@@ -40,6 +40,10 @@ func TestRecordMemberHealthInfot(t *testing.T) {
 	}
 
 	if u.nodeAddresses[actorId]["abc"].AvgLatency != 200 {
-		t.Fatalf(`Should be online`)
+		t.Fatalf(`Should have avg latency of 200`)
+	}
+
+	if u.nodeAddresses[actorId]["abc"].LatencyCounts != 3 {
+		t.Fatalf(`Should have latency count of 3`)
 	}
 }
