@@ -226,14 +226,13 @@ func (u *UptimeChecker) recordMemberHealthInfo(actorID ActorID, upInfos *[]UpInf
 			val.Latency = (*upInfos)[i].latency
 			val.LastChecked = (*upInfos)[i].checkedTime
 
-			// not online, skip latency calculation
-			if !val.IsOnline {
-				continue
+			// if not online, skip latency calculation
+			if val.IsOnline {
+				// moving average calculation
+				newCount := val.LatencyCounts + 1
+				val.AvgLatency = val.AvgLatency * val.LatencyCounts / newCount + val.Latency / newCount
+				val.LatencyCounts = newCount
 			}
-			// moving average calculation
-			newCount := val.LatencyCounts + 1
-			val.AvgLatency = val.AvgLatency * val.LatencyCounts / newCount + val.Latency / newCount
-			val.LatencyCounts = newCount
 		}
 		healthInfos[addr] = val
 	}
