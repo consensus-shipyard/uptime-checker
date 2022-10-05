@@ -5,7 +5,7 @@ import (
 )
 
 func prepareUpInfos(latency uint64) *[]UpInfo {
-	upInfos := make([]UpInfo, 1)
+	upInfos := make([]UpInfo, 0)
 	upInfos = append(upInfos, UpInfo { isOnline: true, latency: latency, checkedTime: uint64(1000)})
 	return &upInfos
 }
@@ -16,9 +16,9 @@ func prepareMultiAddrs(addr string) *[]MultiAddr {
 	return &addresses
 }
 
-func TestRecordMemberHealthInfot(*testing.T) {
+func TestRecordMemberHealthInfot(t *testing.T) {
 	u := UptimeChecker{
-		nodeAddresses: make(map[ActorID]map[MultiAddr]HealtcheckInfo)
+		nodeAddresses: make(map[ActorID]map[MultiAddr]HealtcheckInfo),
 	}
 
 	actorId := ActorID(1000)
@@ -27,20 +27,19 @@ func TestRecordMemberHealthInfot(*testing.T) {
 	addresses := prepareMultiAddrs("abc")
 	u.recordMemberHealthInfo(actorId, upInfos, addresses)
 
-	upInfos := prepareUpInfos(uint64(200))
-	addresses := prepareMultiAddrs("abc")
+	upInfos = prepareUpInfos(uint64(200))
+	addresses = prepareMultiAddrs("abc")
 	u.recordMemberHealthInfo(actorId, upInfos, addresses)
 
-
-	upInfos := prepareUpInfos(uint64(300))
-	addresses := prepareMultiAddrs("abc")
+	upInfos = prepareUpInfos(uint64(300))
+	addresses = prepareMultiAddrs("abc")
 	u.recordMemberHealthInfo(actorId, upInfos, addresses)
 
-	if !u.nodeAddresses[actorId].IsOnline {
+	if !u.nodeAddresses[actorId]["abc"].IsOnline {
 		t.Fatalf(`Should be online`)
 	}
 
-	if u.nodeAddresses[actorId]. {
+	if u.nodeAddresses[actorId]["abc"].AvgLatency != 200 {
 		t.Fatalf(`Should be online`)
 	}
 }
