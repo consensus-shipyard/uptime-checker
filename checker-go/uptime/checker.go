@@ -227,9 +227,9 @@ func (u *UptimeChecker) recordMemberHealthInfo(actorID ActorID, upInfos *[]UpInf
 			val.LastChecked = (*upInfos)[i].checkedTime
 
 			// moving average calculation
-			newCount := val.AvgLatency + 1
-			val.AvgLatency = val.AvgLatency * val.AvgLatency / newCount + val.Latency / newCount
-			val.AvgLatency = newCount
+			newCount := val.LatencyCounts + 1
+			val.AvgLatency = val.AvgLatency * val.LatencyCounts / newCount + val.Latency / newCount
+			val.LatencyCounts = newCount
 		}
 		healthInfos[addr] = val
 	}
